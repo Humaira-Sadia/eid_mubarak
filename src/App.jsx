@@ -42,7 +42,7 @@ const App = () => {
         ))}
       </div>
       {initialMessageDisplayed && displayedChatData.length > 0 && displayedChatData[0].sentByMe && (
-        <div className="mesg_field w-16 mt-auto mb-3 mx-4 p-3 border rounded-3xl flex justify-evenly">
+        <div className="mesg_field w-16 mt-auto mb-10 mx-4 p-3 border rounded-3xl flex justify-evenly">
           <div className="circle w-2 h-2 bg-white rounded-3xl"></div>
           <div className="circle w-2 h-2 bg-white rounded-3xl"></div>
           <div className="circle w-2 h-2 bg-white rounded-3xl"></div>
