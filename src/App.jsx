@@ -4,22 +4,27 @@ import { chatData } from "./constants.js";
 const App = () => {
   const [displayedChatData, setDisplayedChatData] = useState([]);
   const [initialMessageDisplayed, setInitialMessageDisplayed] = useState(false);
+  const [hideChatItem, setHideChatItem] = useState(false); // State to control chatItem visibility
 
   useEffect(() => {
     const displayMessagesWithDelay = () => {
       let delay = 0;
       const displayedMessages = [];
       chatData.forEach((item, index) => {
-        delay += 3000; 
+        delay += 3000;
         setTimeout(() => {
           displayedMessages.unshift(item);
           setDisplayedChatData([...displayedMessages]);
         }, delay);
       });
-      
+
       setTimeout(() => {
         setInitialMessageDisplayed(true);
-      }, 5000); 
+      }, 5000);
+
+      setTimeout(() => {
+        setHideChatItem(true);
+      }, 20000);
     };
 
     displayMessagesWithDelay();
@@ -27,7 +32,7 @@ const App = () => {
 
   return (
     <div className="sm:hidden font-ubuntu h-screen flex flex-col">
-      <div className="chatItem flex flex-col-reverse items-end overflow-y-auto">
+      <div className={`chatItem flex flex-col-reverse items-end overflow-y-auto ${hideChatItem ? 'hidden' : ''}`}>
         {displayedChatData.map((item, index) => (
           <div
             key={index}
@@ -42,14 +47,14 @@ const App = () => {
         ))}
       </div>
       {initialMessageDisplayed && displayedChatData.length > 0 && displayedChatData[0].sentByMe && (
-        <div className="mesg_field w-16 mt-auto mb-10 mx-4 p-3 border rounded-3xl flex justify-evenly">
+        <div className="mesg_field w-16 mt-auto mb-16 mx-4 p-3 border rounded-3xl flex justify-evenly">
           <div className="circle w-2 h-2 bg-white rounded-3xl"></div>
           <div className="circle w-2 h-2 bg-white rounded-3xl"></div>
           <div className="circle w-2 h-2 bg-white rounded-3xl"></div>
         </div>
       )}
       {displayedChatData.length === chatData.length && (
-        <DelayedVideo src="eid_mubarak.mp4" delay={3000} autoPlay muted />
+        <DelayedVideo className="h-screen" src="eid_mubarak.mp4" delay={3000} autoPlay muted />
       )}
     </div>
   );
